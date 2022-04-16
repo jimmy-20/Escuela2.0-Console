@@ -142,7 +142,14 @@ namespace CoreEscuela
             return listaAlumnos.OrderBy((al) => al.UniqueId).Take(cantidad).ToList();
         }
 
+        public Dictionary<string,IEnumerable<ObjetoEscuelaBase>> getDiccionarioObjetos(){
+            var diccionario = new Dictionary<string, IEnumerable<ObjetoEscuelaBase>>();
 
+
+            diccionario.Add("Escuela",new [] {Escuela}); //Un arreglo es un IEnumerable
+            diccionario.Add("Cursos",Escuela.Cursos.Cast<ObjetoEscuelaBase>()); //como cursos hereda de ObjetoEscuelaBase, podemos hacer el cast
+            return diccionario;
+        }
         #region Metodos de Carga
         private void CargarCursos()
         {
