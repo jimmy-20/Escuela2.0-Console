@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreEscuela.Entidades;
+using CoreEscuela.Entidades.Interfaces;
 using CoreEscuela.Util;
 using static System.Console;
 
@@ -15,7 +17,12 @@ namespace CoreEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             //Printer.Beep(10000, cantidad: 10);
             ImpimirCursosEscuela(engine.Escuela);
-            //var listaObjetos = engine.GetObjetosEscuela();
+            var listaObjetos = engine.GetObjetosEscuela();
+
+            var listaILugar = from obj in listaObjetos
+                                where obj is iLugar
+                                select (iLugar) obj ;
+            //engine.Escuela.LimpiarLugar();
 
 
             //is permite preguntar si un objeto es un objeto determinado
