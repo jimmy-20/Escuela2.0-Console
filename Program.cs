@@ -17,13 +17,9 @@ namespace CoreEscuela
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             //Printer.Beep(10000, cantidad: 10);
             ImpimirCursosEscuela(engine.Escuela);
-            var listaObjetos = engine.GetObjetosEscuela();
 
-            var listaILugar = from obj in listaObjetos
-                                where obj is iLugar
-                                select (iLugar) obj ;
-            //engine.Escuela.LimpiarLugar();
-
+            int dummy = 0;
+            var listaObjetos = engine.GetObjetosEscuela(out int conteoEvaluaciones,out int Alumnos);
 
             //is permite preguntar si un objeto es un objeto determinado
             //as permite castear un objeto y devuelve null si no puede

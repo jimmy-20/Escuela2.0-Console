@@ -25,22 +25,103 @@ namespace CoreEscuela
             CargarAsignaturas();
             CargarEvaluaciones();
 
-        }       
+        }
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela()
+        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        (
+        bool traeEval = true,
+        bool traeAlumnos = true,
+        bool traeCursos = true,
+        bool traeAsignaturas = true
+        ){
+            int dummy = 0;
+            return GetObjetosEscuela(out dummy,out dummy,out dummy,out dummy); 
+        }   
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        (
+        out int conteoEvaluaciones,
+        bool traeEval = true,
+        bool traeAlumnos = true,
+        bool traeCursos = true,
+        bool traeAsignaturas = true
+        ){
+            int dummy = 0;
+            return GetObjetosEscuela(out conteoEvaluaciones,out dummy,out dummy,out dummy); 
+        }
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        (
+        out int conteoEvaluaciones,
+        out int conteoAlumnos,
+        bool traeEval = true,
+        bool traeAlumnos = true,
+        bool traeCursos = true,
+        bool traeAsignaturas = true
+        ){
+            int dummy = 0;
+            return GetObjetosEscuela(out conteoEvaluaciones,out conteoAlumnos,out dummy,out dummy); 
+        }         
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        (
+        out int conteoEvaluaciones,
+        out int conteoAlumnos,
+        out int conteoCursos,
+        bool traeEval = true,
+        bool traeAlumnos = true,
+        bool traeCursos = true,
+        bool traeAsignaturas = true
+        ){
+            int dummy = 0;
+            return GetObjetosEscuela(out conteoEvaluaciones,out conteoAlumnos,out conteoCursos,out dummy); 
+        }   
+
+        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        (
+        out int conteoEvaluaciones ,
+        out int conteoAlumnos ,
+        out int conteoCursos ,
+        out int conteoAsignaturas ,
+        bool traeEval = true,
+        bool traeAlumnos = true,
+        bool traeCursos = true,
+        bool traeAsignaturas = true
+        )
         {
+            conteoEvaluaciones = 0;
+            conteoAlumnos = 0;
+            conteoCursos = 0;
+            conteoAsignaturas = 0;
             var listaObj = new List<ObjetoEscuelaBase>();
             listaObj.Add(Escuela);
-            listaObj.AddRange(Escuela.Cursos);
 
+            
+            if (traeCursos){
+                listaObj.AddRange(Escuela.Cursos);
+            }
+            
+            conteoCursos = Escuela.Cursos.Count;
             foreach (var curso in Escuela.Cursos)
             {
-                listaObj.AddRange(curso.Asignaturas);
-                listaObj.AddRange(curso.Alumnos);
+                conteoAsignaturas += curso.Asignaturas.Count;
+                conteoAlumnos += curso.Alumnos.Count;
+                
+                if (traeAsignaturas){
+                    listaObj.AddRange(curso.Asignaturas);
+                }
 
-                foreach (var alumno in curso.Alumnos)
-                {
-                    listaObj.AddRange(alumno.Evaluaciones);
+                if (traeAlumnos){
+                    listaObj.AddRange(curso.Alumnos);
+                }
+                
+
+                if (traeEval ){
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        listaObj.AddRange(alumno.Evaluaciones);
+                        conteoEvaluaciones+= alumno.Evaluaciones.Count;
+                    }
                 }
             }
 
