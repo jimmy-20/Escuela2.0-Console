@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
+using CoreEscuela.Entidades.Llaves;
 
 namespace CoreEscuela
 {
@@ -142,12 +143,30 @@ namespace CoreEscuela
             return listaAlumnos.OrderBy((al) => al.UniqueId).Take(cantidad).ToList();
         }
 
-        public Dictionary<string,IEnumerable<ObjetoEscuelaBase>> getDiccionarioObjetos(){
-            var diccionario = new Dictionary<string, IEnumerable<ObjetoEscuelaBase>>();
+        public Dictionary<LlaveDiccionario,IEnumerable<ObjetoEscuelaBase>> getDiccionarioObjetos(){
+            var diccionario = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();           
 
+            diccionario.Add(LlaveDiccionario.Escuela,new [] {Escuela}); //Un arreglo es un IEnumerable
+            diccionario.Add(LlaveDiccionario.Cursos,Escuela.Cursos); //como cursos hereda de ObjetoEscuelaBase, podemos hacer el cast
 
-            diccionario.Add("Escuela",new [] {Escuela}); //Un arreglo es un IEnumerable
-            diccionario.Add("Cursos",Escuela.Cursos.Cast<ObjetoEscuelaBase>()); //como cursos hereda de ObjetoEscuelaBase, podemos hacer el cast
+            var AluTmp = new List<Alumno>();
+            var AsiTmp = new List<Asignatura>();
+            var EvaluTmp = new List<Evaluación>();
+
+            foreach (Curso c in Escuela.Cursos)
+            {
+                AluTmp.AddRange(c.Alumnos);
+                AsiTmp.AddRange(c.Asignaturas);
+                foreach (Alumno a in c.Alumnos)
+                {
+                    EvaluTmp.AddRange(a.Evaluaciones);
+                }
+            }
+
+            diccionario.Add(LlaveDiccionario.Alumnos, AluTmp);
+            diccionario.Add(LlaveDiccionario.Asignaturas, AsiTmp);
+            diccionario.Add(LlaveDiccionario.Evaluaciones, EvaluTmp);
+
             return diccionario;
         }
         #region Metodos de Carga

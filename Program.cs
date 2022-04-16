@@ -38,16 +38,16 @@ namespace CoreEscuela
             dic["Luna"] = "Cuerpo celeste que gira alrededor de la tierra";
 
             WriteLine(dic["Luna"]);
+
+            var dictmp = engine.getDiccionarioObjetos();
+            
             //is permite preguntar si un objeto es un objeto determinado
             //as permite castear un objeto y devuelve null si no puede
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
         {
-
             Printer.WriteTitle("Cursos de la Escuela");
-
-
             if (escuela?.Cursos != null)
             {
                 foreach (var curso in escuela.Cursos)
