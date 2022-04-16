@@ -7,6 +7,8 @@ namespace CoreEscuela
 {
     public sealed class EscuelaEngine
     {
+        //La palabra sealed, permite sellar una clase, permitiendo
+        //crear instancias pero no realizar herencia
         public Escuela Escuela { get; set; }
 
         public EscuelaEngine()

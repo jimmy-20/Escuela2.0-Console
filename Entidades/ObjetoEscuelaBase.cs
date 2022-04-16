@@ -16,5 +16,8 @@ namespace CoreEscuela.Entidades
         {
             return $"{Nombre},{UniqueId}";
         }
+
+        // la clave reservada Abstrac permite no crear instancia de esta clase
+        // solo funciona para realizar herencia
     }
 }
