@@ -17,31 +17,9 @@ namespace CoreEscuela
             ImpimirCursosEscuela(engine.Escuela);
             //var listaObjetos = engine.GetObjetosEscuela();
 
-            var objDummy = new ObjetoEscuelaBase();
-            Printer.DrawLine(20);
-            Printer.WriteTitle("Pruebas de Polimorfismo");
-            var alumnoTest = new Alumno{Nombre = "Claire Underwood"};
-            
-            Printer.WriteTitle("Alumno");
-            WriteLine($"Nombre: {alumnoTest.Nombre}");
-            WriteLine($"Id: {alumnoTest.UniqueId}");
-            WriteLine($"Tipo: {alumnoTest.GetType()}");
 
-            var Evaluacion = new Evaluación{Nombre="Matematicas",Nota = 4.5f};
-            Printer.WriteTitle("Evaluacion");
-            WriteLine($"Nombre: {Evaluacion.Nombre}");
-            WriteLine($"Id: {Evaluacion.UniqueId}");
-            WriteLine($"Nota: {Evaluacion.Nota}");
-            WriteLine($"Tipo: {Evaluacion.GetType()}");
-
-            objDummy = Evaluacion;
-            Printer.WriteTitle("ObjetoEscuelaBase");
-            WriteLine($"Nombre: {objDummy.Nombre}");
-            WriteLine($"Id: {objDummy.UniqueId}");
-            WriteLine($"Tipo: {Evaluacion.GetType()}");
-
-            //Evaluacion es un OSB pero el OBS no es un Alumno, aunque C# nos permita
-            alumnoTest = (Alumno) (ObjetoEscuelaBase) Evaluacion;
+            //is permite preguntar si un objeto es un objeto determinado
+            //as permite castear un objeto y devuelve null si no puede
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
