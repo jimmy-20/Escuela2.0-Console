@@ -27,7 +27,7 @@ namespace CoreEscuela
 
         }
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela
         (
         bool traeEval = true,
         bool traeAlumnos = true,
@@ -38,7 +38,7 @@ namespace CoreEscuela
             return GetObjetosEscuela(out dummy,out dummy,out dummy,out dummy); 
         }   
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela
         (
         out int conteoEvaluaciones,
         bool traeEval = true,
@@ -50,7 +50,7 @@ namespace CoreEscuela
             return GetObjetosEscuela(out conteoEvaluaciones,out dummy,out dummy,out dummy); 
         }
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela
         (
         out int conteoEvaluaciones,
         out int conteoAlumnos,
@@ -63,7 +63,7 @@ namespace CoreEscuela
             return GetObjetosEscuela(out conteoEvaluaciones,out conteoAlumnos,out dummy,out dummy); 
         }         
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela
         (
         out int conteoEvaluaciones,
         out int conteoAlumnos,
@@ -77,7 +77,7 @@ namespace CoreEscuela
             return GetObjetosEscuela(out conteoEvaluaciones,out conteoAlumnos,out conteoCursos,out dummy); 
         }   
 
-        public List<ObjetoEscuelaBase> GetObjetosEscuela
+        public IReadOnlyList<ObjetoEscuelaBase> GetObjetosEscuela
         (
         out int conteoEvaluaciones ,
         out int conteoAlumnos ,
@@ -141,6 +141,7 @@ namespace CoreEscuela
 
             return listaAlumnos.OrderBy((al) => al.UniqueId).Take(cantidad).ToList();
         }
+
 
         #region Metodos de Carga
         private void CargarCursos()
