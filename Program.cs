@@ -20,6 +20,8 @@ namespace CoreEscuela.App
 
             var report = new Reporteador(engine.getDiccionarioObjetos());
             var Evaluaciones = report.GetEvaluaciones();
+            var Asignaturas = report.GetAsignaturas();
+            var AsignaturaXEvaluaciones = report.GetDicEvalXAsignatura();
             //Printer.Beep(10000, cantidad: 10);
             //ImpimirCursosEscuela(engine.Escuela);
             //is permite preguntar si un objeto es un objeto determinado
