@@ -5,7 +5,7 @@ using CoreEscuela.Entidades;
 using CoreEscuela.Entidades.Llaves;
 using CoreEscuela.Util;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
     public sealed class EscuelaEngine
     {

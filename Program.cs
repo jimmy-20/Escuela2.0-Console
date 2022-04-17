@@ -5,7 +5,7 @@ using CoreEscuela.Entidades;
 using CoreEscuela.Util;
 using static System.Console;
 
-namespace CoreEscuela
+namespace CoreEscuela.App
 {
     class Program
     {
@@ -17,14 +17,11 @@ namespace CoreEscuela
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
+
+            var report = new Reporteador(engine.getDiccionarioObjetos());
+            var Evaluaciones = report.GetEvaluaciones();
             //Printer.Beep(10000, cantidad: 10);
             //ImpimirCursosEscuela(engine.Escuela);
-
-            int dummy = 0;
-            var listaObjetos = engine.GetObjetosEscuela(out int conteoEvaluaciones,out int Alumnos);
-
-            var dictmp = engine.getDiccionarioObjetos();
-            engine.ImprimirDiccionario(engine.getDiccionarioObjetos());
             //is permite preguntar si un objeto es un objeto determinado
             //as permite castear un objeto y devuelve null si no puede
         }
