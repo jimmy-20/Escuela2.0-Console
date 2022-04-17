@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
 using CoreEscuela.Entidades.Llaves;
+using CoreEscuela.Util;
 
 namespace CoreEscuela
 {
@@ -115,9 +116,8 @@ namespace CoreEscuela
                 if (traeAlumnos){
                     listaObj.AddRange(curso.Alumnos);
                 }
-                
 
-                if (traeEval ){
+                if (traeEval){
                     foreach (var alumno in curso.Alumnos)
                     {
                         listaObj.AddRange(alumno.Evaluaciones);
@@ -162,12 +162,53 @@ namespace CoreEscuela
                     EvaluTmp.AddRange(a.Evaluaciones);
                 }
             }
-
             diccionario.Add(LlaveDiccionario.Alumnos, AluTmp);
             diccionario.Add(LlaveDiccionario.Asignaturas, AsiTmp);
             diccionario.Add(LlaveDiccionario.Evaluaciones, EvaluTmp);
 
             return diccionario;
+        }
+
+        public void ImprimirDiccionario(Dictionary<LlaveDiccionario,IEnumerable<ObjetoEscuelaBase>> dic, bool mostrarEval = false){
+            foreach (var obj in dic)
+            {
+                Printer.WriteTitle(obj.Key.ToString());
+                foreach (var val in obj.Value)
+                {
+                    switch (obj.Key)
+                    {
+                        case LlaveDiccionario.Escuela:
+                            Console.WriteLine(val);
+                        break;
+
+                        case LlaveDiccionario.Cursos:
+                            var curTmp = val as Curso;
+                            if (curTmp != null){
+                                int alumnos = curTmp.Alumnos.Count();
+                                Console.WriteLine("Curso: " + val.Nombre + "Cantidad Alumnos: " + alumnos);
+                            }
+                        break;
+                        
+                        case LlaveDiccionario.Alumnos:
+                        Console.WriteLine($"Alumno: {val.Nombre}");
+                        break;
+
+                        case LlaveDiccionario.Asignaturas:
+                        Console.WriteLine($"Asignatura: {val.Nombre}");
+                        break;
+
+                        case LlaveDiccionario.Evaluaciones:
+                        if (mostrarEval){
+                            Console.WriteLine(val);
+                        }
+                        break;
+
+                        default:
+                        Console.WriteLine(val);
+                        break;
+                    }
+                }
+            }
         }
         #region Metodos de Carga
         private void CargarCursos()
@@ -204,22 +245,20 @@ namespace CoreEscuela
 
         private void CargarEvaluaciones()
         {
-
+            var rnd = new Random();
             foreach (var curso in Escuela.Cursos)
             {
                 foreach (var asignatura in curso.Asignaturas)
                 {
                     foreach (var alumno in curso.Alumnos)
                     {
-                        var rnd = new Random(System.Environment.TickCount);
-
                         for (int i = 0; i < 5; i++)
                         {
                             var ev = new Evaluación
                             {
                                 Asignatura = asignatura,
                                 Nombre = $"{asignatura.Nombre} Ev#{i + 1}",
-                                Nota = (float)(5 * rnd.NextDouble()),
+                                Nota =  MathF.Round( (float) (5 * rnd.NextDouble()) ,2),
                                 Alumno = alumno
                             };
                             alumno.Evaluaciones.Add(ev);

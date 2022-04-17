@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using CoreEscuela.Entidades;
-using CoreEscuela.Entidades.Interfaces;
 using CoreEscuela.Util;
 using static System.Console;
 
@@ -12,37 +11,29 @@ namespace CoreEscuela
     {
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += AccionDelEvento;
+            AppDomain.CurrentDomain.ProcessExit += (o,s) => Printer.Beep(100,1000,1);
+
             var engine = new EscuelaEngine();
             engine.Inicializar();
             Printer.WriteTitle("BIENVENIDOS A LA ESCUELA");
             //Printer.Beep(10000, cantidad: 10);
-            ImpimirCursosEscuela(engine.Escuela);
+            //ImpimirCursosEscuela(engine.Escuela);
 
             int dummy = 0;
             var listaObjetos = engine.GetObjetosEscuela(out int conteoEvaluaciones,out int Alumnos);
-            Dictionary<int,string> diccionario = new Dictionary<int, string>();
-            diccionario.Add(10,"Juan");
-            diccionario.Add(23,"Lorem Ipsum");
-
-            foreach (var keyValPair in diccionario)
-            {
-                WriteLine($"Key: {keyValPair.Key} Valor: {keyValPair.Value}");
-            }
-
-            
-            Printer.WriteTitle("Acceso a Diccionario");
-            WriteLine(diccionario[23]);
-
-            Printer.WriteTitle("Otro diccionario");
-            Dictionary<string,string> dic = new Dictionary<string, string>();
-            dic["Luna"] = "Cuerpo celeste que gira alrededor de la tierra";
-
-            WriteLine(dic["Luna"]);
 
             var dictmp = engine.getDiccionarioObjetos();
-            
+            engine.ImprimirDiccionario(engine.getDiccionarioObjetos());
             //is permite preguntar si un objeto es un objeto determinado
             //as permite castear un objeto y devuelve null si no puede
+        }
+
+        private static void AccionDelEvento(object sender, EventArgs e)
+        {
+            Printer.WriteTitle("Saliendo. . .");
+            Printer.Beep(700,500,3);
+            Printer.WriteTitle("SALIO");
         }
 
         private static void ImpimirCursosEscuela(Escuela escuela)
