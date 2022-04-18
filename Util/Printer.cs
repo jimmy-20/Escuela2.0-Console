@@ -8,6 +8,9 @@ namespace CoreEscuela.Util
         {
             WriteLine("".PadLeft(tam, '='));
         }
+        public static void PresioneENTER(){
+            WriteLine("Presione ENTER para continuar");
+        }
 
         public static void WriteTitle(string titulo)
         {
