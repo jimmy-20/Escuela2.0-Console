@@ -27,5 +27,14 @@ namespace CoreEscuela.Util
                 System.Console.Beep(hz, tiempo);
             }
         }
+
+        public static void Menu(){
+            WriteLine("1. Informacion de la escuela");
+            WriteLine("2. Ver Cursos");
+            WriteLine("3. Ver Asignaturas");
+            WriteLine("4. Ver Alumnos");
+            WriteLine("5. Consultar calificaciones");
+            WriteLine("6. Salir");
+        }
     }
 }
