@@ -22,6 +22,15 @@ namespace CoreEscuela.App
             var Evaluaciones = report.GetEvaluaciones();
             var Asignaturas = report.GetAsignaturas();
             var AsignaturaXEvaluaciones = report.GetDicEvalXAsignatura();
+            var listaPromedioAsignatura = report.GetPromedioAlumnoAsignatura();
+            var MejoresAlumnosXAsignatura = report.GetExcelencia(3);
+
+            Printer.WriteTitle("Captura de una Evaluacion por Consola");
+            var newEval = new Evaluación();
+            string nombre;
+            float nota;
+
+            WriteLine("Ingrese el nombre de la evaluacion");
             //Printer.Beep(10000, cantidad: 10);
             //ImpimirCursosEscuela(engine.Escuela);
             //is permite preguntar si un objeto es un objeto determinado

@@ -53,5 +53,48 @@ namespace CoreEscuela.App
 
             return dicRta;
         }
+
+        public Dictionary<string, IEnumerable<AlumnoPromedio>> GetPromedioAlumnoAsignatura(){
+            var rta = new Dictionary<string, IEnumerable<AlumnoPromedio>>();
+            var dicEvalXAsig = GetDicEvalXAsignatura();
+
+            foreach (var dic in dicEvalXAsig)
+            {
+                var promedioAlumnos = from eval in dic.Value
+                            group eval by new {
+                                eval.Alumno.UniqueId,
+                                eval.Alumno.Nombre
+                            }
+                            into grupoEvalAlumno
+                            select new AlumnoPromedio {
+                                AlumnoId = grupoEvalAlumno.Key.UniqueId,
+                                AlumnoNombre = grupoEvalAlumno.Key.Nombre,
+                                Promedio = grupoEvalAlumno.Average( (e) => e.Nota)
+                            }; //la variable dummy es de tipo anonima. no se especifica el tipo de objeto que contiene
+                rta.Add(dic.Key,promedioAlumnos);
+            }
+
+            return rta;
+        }
+
+        public Dictionary<string,IEnumerable<AlumnoPromedio>> GetExcelencia(int top){
+            var promediosAsignatura = GetPromedioAlumnoAsignatura();
+            var mejoresNotas = new Dictionary<string,IEnumerable<AlumnoPromedio>>();
+            foreach (var dic in promediosAsignatura)
+            {
+                /*
+                De la lista de valores del diccionario, ordenar por promedio
+                de manera descendente y seleccionar las evaluaciones, del resultado
+                tomar los -top- primeros
+                */
+                var topEvaluacion = (from eval in dic.Value
+                                    orderby eval.Promedio descending
+                                    select eval).Take(top);
+
+                mejoresNotas.Add(dic.Key,topEvaluacion);
+            }
+
+            return mejoresNotas;           
+        }
     }
 }
